@@ -1,5 +1,3 @@
-#!/opt/bin/lua
-
 local config = {
     blSource = "antizapret", -- antizapret или rublacklist
     groupBySld = 32, -- количество поддоменов после которого в список вносится весь домен второго уровня целиком
