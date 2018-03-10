@@ -7,13 +7,13 @@ local config = {
     neverGroupDomains = { ["livejournal.com"] = true, ["facebook.com"] = true , ["vk.com"] = true },
     stripWww = true,
     convertIdn = false,
-    torifyNsLookups = false, -- отправлять DNS запросы заблокированных доменов через TOR
+    torifyNsLookups = true, -- отправлять DNS запросы заблокированных доменов через TOR
     blMinimumEntries = 1000, -- костыль если список получился короче, значит что-то пошло не так и конфиги не обновляем
     dnsmasqConfigPath = "/opt/etc/runblock/runblock.dnsmasq",
     ipsetConfigPath = "/opt/etc/runblock/runblock.ipset",
     ipsetDns = "rublack-dns",
     ipsetIp = "rublack-ip",
-    torDnsAddr = "127.0.0.1#9053"
+    torDnsAddr = "8.8.4.4"
 }
  
  
