@@ -13,7 +13,7 @@ local config = {
     ipsetConfigPath = "/opt/etc/runblock/runblock.ipset",
     ipsetDns = "rublack-dns",
     ipsetIp = "rublack-ip",
-    torDnsAddr = "1.1.1.1"
+    torDnsAddr = "8.8.8.8"
 }
  
  
