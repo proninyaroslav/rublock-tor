@@ -1,0 +1,14 @@
+ipset=/vk.com/rublack-dns
+ipset=/userapi.com/rublack-dns
+ipset=/vigo.ru/rublack-dns
+ipset=/vk-cdn.net/rublack-dns
+ipset=/mail.ru/rublack-dns
+ipset=/imgsmail.ru/rublack-dns
+ipset=/mradx.net/rublack-dns
+ipset=/datacloudmail.ru/rublack-dns
+ipset=/yandex.ru/rublack-dns
+ipset=/yandex.ua/rublack-dns
+ipset=/yastatic.net/rublack-dns
+ipset=/yandex.net/rublack-dns
+ipset=/ok.ru/rublack-dns
+ipset=/mycdn.me/rublack-dns
