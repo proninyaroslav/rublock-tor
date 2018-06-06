@@ -34,3 +34,7 @@ server=/kaspersky.ru/127.0.0.1#9053
 ipset=/kaspersky.ru/rublack-dns
 server=/drweb.ru/127.0.0.1#9053
 ipset=/drweb.ru/rublack-dns
+server=/auto.ru/127.0.0.1#9053
+ipset=/auto.ru/rublack-dns
+server=/yandexdatafactory.com/127.0.0.1#9053
+ipset=/yandexdatafactory.com/rublack-dns
