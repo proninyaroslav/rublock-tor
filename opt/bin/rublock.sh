@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo List Generation
-/opt/bin/blupdate.lua
+/opt/bin/rublupdate.lua
 
 echo Clear List
 cd /opt/etc/runblock
