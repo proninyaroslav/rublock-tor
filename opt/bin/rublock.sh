@@ -17,4 +17,5 @@ sed -i '$a54.229.110.205' runblock.ipset
 sed -i '$a18.205.93.0\/25' runblock.ipset
 
 echo Restart dnsmasq
-killall -sighup dnsmasq
+restart_dhcpd
+restart_firewall
