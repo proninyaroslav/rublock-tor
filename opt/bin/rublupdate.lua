@@ -208,6 +208,7 @@ local function compactDomainList(fqdnList, subdomainsCount)
     end
     return domainTable, numEntries
 end
+
 local function generateDnsmasqConfig(configPath, domainList)
     local configFile = assert(io.open(configPath, "w"), "could not open dnsmasq config")
     for fqdn in pairs(domainList) do
@@ -218,16 +219,17 @@ local function generateDnsmasqConfig(configPath, domainList)
     end
     configFile:close()
 end
+
 local function generateIpsetConfig(configPath, ipList)
     local configFile = assert(io.open(configPath, "w"), "could not open ipset config")
-    configFile:write(string.format("flush %s-tmp\n", config.ipsetIp))
     for ipaddr in pairs(ipList) do
-        configFile:write(string.format("add %s %s\n", config.ipsetIp, ipaddr))
+        configFile:write(string.format("%s\n", ipaddr))
     end
-    configFile:write(string.format("swap %s %s-tmp\n", config.ipsetIp, config.ipsetIp))
     configFile:close()
 end
+
 local retVal, retCode, url
+
 local output, bltables = cunstructTables()
 if config.blSource == "rublacklist" then
     output = ltn12.sink.chain(ltn12.filter.chain(rublacklistExtractDomains(), normalizeFqdn()), output)
@@ -238,11 +240,13 @@ elseif config.blSource == "antizapret" then
 else
     error("blacklist source should be either 'rublacklist' or 'antizapret'")
 end
+
 if http then
     retVal, retCode = http.request { url = url, sink = output }
 else
     retVal, retCode = ltn12.pump.all(ltn12.source.file(io.popen("wget -qO- " .. url)), output)
 end
+
 if (retVal == 1) and ((retCode == 200) or (http == nil)) then
     local domainTable, recordsNum = compactDomainList(bltables.fqdn, bltables.sdcount)
     if recordsNum > config.blMinimumEntries then
