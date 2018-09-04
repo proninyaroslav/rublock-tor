@@ -57,6 +57,7 @@ ipset=/webmoney.ru/rublack-dns
 ipset=/wmeuro.eu/rublack-dns
 ipset=/wmid.com/rublack-dns
 ipset=/wmtransfer.com/rublack-dns
+ipset=/yadi.sk/rublack-dns
 ipset=/yandex.net/rublack-dns
 ipset=/yandex.ru/rublack-dns
 ipset=/yandex.ua/rublack-dns
