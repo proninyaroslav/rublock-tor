@@ -1,1 +1,1 @@
-Детали установки в [Wiki](https://bitbucket.org/blackcofee/rublock-tor/wiki/Home)
+Детали установки в [Wiki](https://github.com/blackcofee/rublock-tor/wiki)
