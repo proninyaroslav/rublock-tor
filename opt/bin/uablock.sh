@@ -8,6 +8,13 @@ echo Generation Block List
 cd /opt/etc/runblock
 sed -i 's/.*/ipset=\/&\/rublack-dns/' runblock.dnsmasq
 
+echo Add ip's
+ipset flush rublack-dns
+
+for IP in $(cat /opt/etc/runblock/runblock.ipset) ; do
+ipset -A rublack-dns $IP
+done
+
 echo Restart dnsmasq
 restart_dhcpd
 restart_firewall
