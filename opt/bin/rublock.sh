@@ -30,6 +30,5 @@ sed -i '$a149.154.168.0\/22' runblock.ipset
 sed -i '$a149.154.172.0\/22' runblock.ipset
 
 echo Restart dnsmasq
-ipset flush rublack-dns
 restart_dhcpd
 restart_firewall
