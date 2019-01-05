@@ -39,7 +39,7 @@ echo Add IP Set Module
 cd /etc/storage/
 sed -i '$a' start_script.sh
 sed -i '$a### Example - load ipset modules' start_script.sh
-sed -i '$amodprobe ip_set_hash_ip' start_script.sh
+sed -i '$amodprobe ip_set_hash_net' start_script.sh
 sed -i '$amodprobe xt_set' start_script.sh
 
 echo Make S10iptables
@@ -55,7 +55,7 @@ start|update)
         [ -d '/opt/etc/runblock' ] || exit 0
         # Create new rublack-dns ipset and fill it with IPs from list
         if [ ! -z "$(ipset --swap rublack-dns rublack-dns 2>&1 | grep 'given name does not exist')" ] ; then
-                ipset -N rublack-dns iphash
+                ipset -N rublack-dns nethash
                 for IP in $(cat /opt/etc/runblock/runblock.ipset) ; do
                         ipset -A rublack-dns $IP
                 done
