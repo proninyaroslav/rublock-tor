@@ -9,6 +9,5 @@ cd /opt/etc/runblock
 sed -i 's/.*/ipset=\/&\/rublack-dns/' runblock.dnsmasq
 
 echo Restart dnsmasq
-ipset flush rublack-dns
 restart_dhcpd
 restart_firewall
