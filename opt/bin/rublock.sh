@@ -29,7 +29,7 @@ sed -i '$a149.154.164.0\/22' runblock.ipset
 sed -i '$a149.154.168.0\/22' runblock.ipset
 sed -i '$a149.154.172.0\/22' runblock.ipset
 
-echo Add ip's
+echo Add ip
 ipset flush rublack-dns
 
 for IP in $(cat /opt/etc/runblock/runblock.ipset) ; do
