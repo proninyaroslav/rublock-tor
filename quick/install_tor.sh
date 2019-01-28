@@ -14,14 +14,9 @@ wget -O /opt/lib/lua/ltn12.lua https://raw.githubusercontent.com/diegonehab/luas
 wget -O /opt/bin/rublupdate.lua https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublupdate.lua
 wget -O /opt/bin/rublock.sh https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublock.sh
 
-echo Load Ipset Modules
-modprobe ip_set_hash_net
-modprobe xt_set
-ipset -N rublack-dns nethash
-
 echo Block Site
 chmod +x /opt/bin/rublupdate.lua /opt/bin/rublock.sh
-rublock.sh
+rublupdate.lua
 
 echo Make Torrc
 rm -rf /opt/etc/tor/torrc
