@@ -14,6 +14,11 @@ wget -O /opt/lib/lua/ltn12.lua https://raw.githubusercontent.com/diegonehab/luas
 wget -O /opt/bin/rublupdate.lua https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublupdate.lua
 wget -O /opt/bin/rublock.sh https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublock.sh
 
+echo Load Ipset Modules
+modprobe ip_set_hash_net
+modprobe xt_set
+ipset -N rublack-dns nethash
+
 echo Block Site
 chmod +x /opt/bin/rublupdate.lua /opt/bin/rublock.sh
 rublock.sh
@@ -42,10 +47,10 @@ sed -i '$a### Example - load ipset modules' start_script.sh
 sed -i '$amodprobe ip_set_hash_net' start_script.sh
 sed -i '$amodprobe xt_set' start_script.sh
 
-echo Make S10iptables
-rm -rf /opt/etc/init.d/S10iptables
+echo Make update
+rm -rf /opt/bin/update_iptables.sh
 
-cat >> /opt/etc/init.d/S10iptables << 'EOF'
+cat >> /opt/bin/update_iptables.sh << 'EOF'
 #!/bin/sh
 
 case "$1" in
@@ -72,6 +77,8 @@ stop)
         ;;
 esac
 EOF
+
+chmod +x /opt/bin/update_iptables.sh
 
 echo Add entry dnsmasq
 cd /etc/storage/dnsmasq/
