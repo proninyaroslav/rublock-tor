@@ -16,8 +16,6 @@ sed -i '$aipset=\/7-zip.org\/rublack-dns' runblock.dnsmasq
 sed -i '$aipset=\/reactos.org\/rublack-dns' runblock.dnsmasq
 sed -i '$aipset=\/nextcloud.com\/rublack-dns' runblock.dnsmasq
 sed -i '$aipset=\/git.openwrt.org\/rublack-dns' runblock.dnsmasq
-sed -i '$a52.77.181.198' runblock.ipset
-sed -i '$a54.229.110.205' runblock.ipset
 sed -i '$a91.108.4.0\/22' runblock.ipset
 sed -i '$a91.108.8.0\/22' runblock.ipset
 sed -i '$a91.108.12.0\/22' runblock.ipset
