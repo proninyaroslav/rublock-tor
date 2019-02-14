@@ -2,7 +2,7 @@
 
 local config = {
     blSource = "antizapret", -- antizapret или rublacklist
-    groupBySld = 32, -- количество поддоменов после которого в список вносится весь домен второго уровня целиком
+    groupBySld = 16, -- количество поддоменов после которого в список вносится весь домен второго уровня целиком
     neverGroupMasks = { "^%a%a%a?.%a%a$" }, -- не праспространять на org.ru, net.ua и аналогичные
     neverGroupDomains = { ["livejournal.com"] = true, ["facebook.com"] = true , ["vk.com"] = true },
     stripWww = true,
