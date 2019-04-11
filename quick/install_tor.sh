@@ -43,7 +43,7 @@ sed -i '$amodprobe ip_set_hash_net' start_script.sh
 sed -i '$amodprobe xt_set' start_script.sh
 
 echo Make update
-rm -rf /opt/bin/update_iptables.sh
+cat /dev/null > /opt/bin/update_iptables.sh
 
 cat >> /opt/bin/update_iptables.sh << 'EOF'
 #!/bin/sh
@@ -72,8 +72,6 @@ stop)
         ;;
 esac
 EOF
-
-chmod +x /opt/bin/update_iptables.sh
 
 echo Add entry dnsmasq
 cd /etc/storage/dnsmasq/
