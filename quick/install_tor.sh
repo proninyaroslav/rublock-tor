@@ -19,7 +19,7 @@ chmod +x /opt/bin/rublupdate.lua /opt/bin/rublock.sh
 rublupdate.lua
 
 echo Make Torrc
-rm -rf /opt/etc/tor/torrc
+cat /dev/null > /opt/etc/tor/torrc
 
 cat >> /opt/etc/tor/torrc << 'EOF'
 User admin
