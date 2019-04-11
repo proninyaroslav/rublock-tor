@@ -35,7 +35,7 @@ TransPort 127.0.0.1:9040
 DNSPort 127.0.0.1:9053
 EOF
 
-echo Add IP Set Module
+echo Add IPSet Module
 cd /etc/storage/
 sed -i '$a' start_script.sh
 sed -i '$a### Example - load ipset modules' start_script.sh
