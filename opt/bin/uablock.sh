@@ -16,5 +16,4 @@ ipset -A rublack-dns $IP
 done
 
 echo Restart dnsmasq
-restart_dhcpd
-restart_firewall
+killall -q dnsmasq
