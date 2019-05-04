@@ -7,16 +7,21 @@ echo Install Packages
 opkg install tor tor-geoip lua
 
 echo Make Dir
-mkdir /opt/lib/lua /opt/etc/runblock
+mkdir -p /opt/lib/lua /opt/etc/runblock
 
 echo Download Scripts
 wget -O /opt/lib/lua/ltn12.lua https://raw.githubusercontent.com/diegonehab/luasocket/master/src/ltn12.lua
 wget -O /opt/bin/rublupdate.lua https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublupdate.lua
 wget -O /opt/bin/rublock.sh https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublock.sh
 
+echo Load Ipset Modules
+modprobe ip_set_hash_net
+modprobe xt_set
+ipset -N rublack-dns nethash
+
 echo Block Site
 chmod +x /opt/bin/rublupdate.lua /opt/bin/rublock.sh
-rublupdate.lua
+rublock.sh
 
 echo Make Torrc
 cat /dev/null > /opt/etc/tor/torrc
