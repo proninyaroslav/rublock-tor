@@ -40,6 +40,9 @@ TransPort 127.0.0.1:9040
 DNSPort 127.0.0.1:9053
 EOF
 
+echo Parse lan ip
+sed -i 's/192.168.1.1/'"$(nvram get lan_ipaddr)"'/g' /opt/etc/tor/torrc
+
 echo Add IPSet Module
 cd /etc/storage/
 sed -i '$a' start_script.sh
