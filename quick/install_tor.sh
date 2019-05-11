@@ -19,7 +19,7 @@ modprobe ip_set_hash_net
 modprobe xt_set
 ipset -N rublack-dns nethash
 
-echo Launch scripts
+echo Execute scripts
 chmod +x /opt/bin/rublupdate.lua /opt/bin/rublock.sh
 rublock.sh
 
@@ -84,7 +84,7 @@ stop)
 esac
 EOF
 
-echo Add entry dnsmasq
+echo Add entries to dnsmasq
 cd /etc/storage/dnsmasq/
 sed -i '$a' dnsmasq.conf
 sed -i '$a### Tor' dnsmasq.conf
