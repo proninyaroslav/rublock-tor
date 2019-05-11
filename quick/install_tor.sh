@@ -43,6 +43,9 @@ EOF
 echo Parse lan ip
 sed -i 's/192.168.1.1/'"$(nvram get lan_ipaddr)"'/g' /opt/etc/tor/torrc
 
+echo Parse user
+sed -i 's/admin/'"$USER"'/g' /opt/etc/tor/torrc
+
 echo Add ipset module
 cd /etc/storage/
 sed -i '$a' start_script.sh
@@ -90,7 +93,7 @@ sed -i '$aipset=/onion/rublack-dns' dnsmasq.conf
 sed -i '$aconf-file=/opt/etc/runblock/runblock.dnsmasq' dnsmasq.conf
 
 echo Add crontab tasks
-cat >> /etc/storage/cron/crontabs/admin << 'EOF'
+cat >> /etc/storage/cron/crontabs/$USER << 'EOF'
 0 5 * * * /opt/bin/rublock.sh
 EOF
 
