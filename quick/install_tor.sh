@@ -1,29 +1,29 @@
 #!/bin/sh
 
-echo Check Update
+echo Check update
 opkg update && opkg upgrade
 
-echo Install Packages
+echo Install packages
 opkg install tor tor-geoip lua
 
-echo Make Dir
+echo Make directories
 mkdir -p /opt/lib/lua /opt/etc/runblock
 
-echo Download Scripts
+echo Download scripts
 wget -O /opt/lib/lua/ltn12.lua https://raw.githubusercontent.com/diegonehab/luasocket/master/src/ltn12.lua
 wget -O /opt/bin/rublupdate.lua https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublupdate.lua
 wget -O /opt/bin/rublock.sh https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublock.sh
 
-echo Load Ipset Modules
+echo Load ipset modules
 modprobe ip_set_hash_net
 modprobe xt_set
 ipset -N rublack-dns nethash
 
-echo Block Site
+echo Launch scripts
 chmod +x /opt/bin/rublupdate.lua /opt/bin/rublock.sh
 rublock.sh
 
-echo Make Torrc
+echo Make config tor
 cat /dev/null > /opt/etc/tor/torrc
 
 cat >> /opt/etc/tor/torrc << 'EOF'
@@ -43,14 +43,14 @@ EOF
 echo Parse lan ip
 sed -i 's/192.168.1.1/'"$(nvram get lan_ipaddr)"'/g' /opt/etc/tor/torrc
 
-echo Add IPSet Module
+echo Add ipset module
 cd /etc/storage/
 sed -i '$a' start_script.sh
 sed -i '$a### Example - load ipset modules' start_script.sh
 sed -i '$amodprobe ip_set_hash_net' start_script.sh
 sed -i '$amodprobe xt_set' start_script.sh
 
-echo Make update
+echo Make config iptables
 cat /dev/null > /opt/bin/update_iptables.sh
 
 cat >> /opt/bin/update_iptables.sh << 'EOF'
@@ -89,7 +89,7 @@ sed -i '$aserver=/onion/127.0.0.1#9053' dnsmasq.conf
 sed -i '$aipset=/onion/rublack-dns' dnsmasq.conf
 sed -i '$aconf-file=/opt/etc/runblock/runblock.dnsmasq' dnsmasq.conf
 
-echo Add Crontab tasks
+echo Add crontab tasks
 cat >> /etc/storage/cron/crontabs/admin << 'EOF'
 0 5 * * * /opt/bin/rublock.sh
 EOF
