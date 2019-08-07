@@ -44,11 +44,12 @@ echo Parse user and lan ip
 sed -i -e 's/admin/'"$USER"'/' -e 's/192.168.1.1/'"$(nvram get lan_ipaddr)"'/' /opt/etc/tor/torrc
 
 echo Add ipset module
-cd /etc/storage/
-sed -i '$a' start_script.sh
-sed -i '$a### Example - load ipset modules' start_script.sh
-sed -i '$amodprobe ip_set_hash_net' start_script.sh
-sed -i '$amodprobe xt_set' start_script.sh
+cat >> /etc/storage/start_script.sh << 'EOF'
+
+### Load ipset modules
+modprobe ip_set_hash_net
+modprobe xt_set
+EOF
 
 echo Make config iptables
 cat /dev/null > /opt/bin/update_iptables.sh
@@ -82,12 +83,13 @@ esac
 EOF
 
 echo Add entries to dnsmasq
-cd /etc/storage/dnsmasq/
-sed -i '$a' dnsmasq.conf
-sed -i '$a### Tor' dnsmasq.conf
-sed -i '$aserver=/onion/127.0.0.1#9053' dnsmasq.conf
-sed -i '$aipset=/onion/rublack-dns' dnsmasq.conf
-sed -i '$aconf-file=/opt/etc/runblock/runblock.dnsmasq' dnsmasq.conf
+cat >> /etc/storage/dnsmasq/dnsmasq.conf << 'EOF'
+
+### Tor
+server=/onion/127.0.0.1#9053
+ipset=/onion/rublack-dns
+conf-file=/opt/etc/runblock/runblock.dnsmasq
+EOF
 
 echo Add crontab tasks
 cat >> /etc/storage/cron/crontabs/$USER << 'EOF'
