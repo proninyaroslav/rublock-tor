@@ -7,10 +7,10 @@ echo Clear the list
 cd /opt/etc/runblock
 sed -i '/pornhub.com/d' runblock.dnsmasq
 sed -i '/youtube.com/d; /googleusercontent.com/d' runblock.dnsmasq
-sed -i '/vulkan/d; /wulkan/d; /vulcan/d' runblock.dnsmasq
-sed -i '/casino/d; /kasino/d; /azino/d' runblock.dnsmasq
-sed -i '/1xbet/d; /betcity/d; /leon/d; /fonbet/d' runblock.dnsmasq
-sed -i '/stavka/d; /slot/d; /dosug/d' runblock.dnsmasq
+sed -i '/lkan/d; /lcan/d; /1x/d' runblock.dnsmasq
+sed -i '/asino/d; /azino/d' runblock.dnsmasq
+sed -i '/bet/d; /city/d; /leon/d' runblock.dnsmasq
+sed -i '/stav/d; /slot/d; /dosug/d' runblock.dnsmasq
 
 echo Add custom sites
 sed -i '$aipset=\/nnm-club.ws\/rublack-dns' runblock.dnsmasq
