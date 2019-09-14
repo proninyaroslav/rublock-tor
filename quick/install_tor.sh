@@ -69,7 +69,7 @@ start|update)
                         ipset -A rublock $IP
                 done
         fi
-        iptables -A PREROUTING -t mangle -m set --match-set rublock dst,src -j MARK --set-mark 1
+        iptables -t nat -I PREROUTING -i br0 -p tcp -m set --match-set rublock dst -j REDIRECT --to-ports 9040
         ;;
 stop)
         # delete iptables custom rules
