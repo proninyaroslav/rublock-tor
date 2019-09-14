@@ -7,20 +7,20 @@ echo Install packages
 opkg install tor tor-geoip lua
 
 echo Make directories
-mkdir -p /opt/lib/lua /opt/etc/runblock
+mkdir -p /opt/lib/lua /opt/etc/rublock
 
 echo Download scripts
 wget -O /opt/lib/lua/ltn12.lua https://raw.githubusercontent.com/diegonehab/luasocket/master/src/ltn12.lua
-wget -O /opt/bin/rublupdate.lua https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublupdate.lua
-wget -O /opt/bin/rublock.sh https://raw.githubusercontent.com/blackcofee/rublock-tor/master/opt/bin/rublock.sh
+wget -O /opt/bin/blupdate.lua https://raw.githubusercontent.com/blackcofee/rublock-vpn/master/opt/bin/blupdate.lua
+wget -O /opt/bin/rublock.sh https://raw.githubusercontent.com/blackcofee/rublock-vpn/master/opt/bin/rublock.sh
 
 echo Load ipset modules
 modprobe ip_set_hash_net
 modprobe xt_set
-ipset -N rublack-dns nethash
+ipset -N rublock nethash
 
 echo Execute scripts
-chmod +x /opt/bin/rublupdate.lua /opt/bin/rublock.sh
+chmod +x /opt/bin/blupdate.lua /opt/bin/rublock.sh
 rublock.sh
 
 echo Make config tor
@@ -61,16 +61,16 @@ case "$1" in
 start|update)
         # add iptables custom rules
         echo "firewall started"
-        [ -d '/opt/etc/runblock' ] || exit 0
-        # Create new rublack-dns ipset and fill it with IPs from list
-        if [ ! -z "$(ipset --swap rublack-dns rublack-dns 2>&1 | grep 'given name does not exist')" ] ; then
-                ipset -N rublack-dns nethash
-                for IP in $(cat /opt/etc/runblock/runblock.ipset) ; do
-                        ipset -A rublack-dns $IP
+        [ -d '/opt/etc/rublock' ] || exit 0
+        # Create new rublock ipset and fill it with IPs from list
+        if [ ! -z "$(ipset --swap rublock rublock 2>&1 | grep 'given name does not exist')" ] ; then
+                ipset -N rublock nethash
+                for IP in $(cat /opt/etc/rublock/rublock.ips) ; do
+                        ipset -A rublock $IP
                 done
         fi
-        iptables -t nat -I PREROUTING -i br0 -p tcp -m set --match-set rublack-dns dst -j REDIRECT --to-ports 9040
-                ;;
+        iptables -A PREROUTING -t mangle -m set --match-set rublock dst,src -j MARK --set-mark 1
+        ;;
 stop)
         # delete iptables custom rules
         echo "firewall stopped"
@@ -87,8 +87,8 @@ cat >> /etc/storage/dnsmasq/dnsmasq.conf << 'EOF'
 
 ### Tor
 server=/onion/127.0.0.1#9053
-ipset=/onion/rublack-dns
-conf-file=/opt/etc/runblock/runblock.dnsmasq
+ipset=/onion/rublock
+conf-file=/opt/etc/rublock/rublock.dnsmasq
 EOF
 
 echo Add crontab tasks

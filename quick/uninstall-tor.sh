@@ -6,10 +6,10 @@ opkg remove tor
 opkg remove lua
 
 echo Remove directories
-rm -rf /opt/lib/lua /opt/etc/runblock /opt/etc/tor
+rm -rf /opt/lib/lua /opt/etc/rublock /opt/etc/tor
 
 echo Remove scripts
-rm /opt/bin/rublupdate.lua
+rm /opt/bin/blupdate.lua
 rm /opt/bin/rublock.sh
 
 echo Remove ipset modules
@@ -44,7 +44,7 @@ esac
 EOF
 
 echo Clean dnsmasq
-sed -i '/tor/d; /onion/d; /runblock/d' /etc/storage/dnsmasq/dnsmasq.conf
+sed -i '/tor/d; /onion/d; /rublock/d' /etc/storage/dnsmasq/dnsmasq.conf
 
 echo Clean crontab tasks
 sed -i '/rublock/d' /etc/storage/cron/crontabs/$USER
