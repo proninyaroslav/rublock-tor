@@ -44,7 +44,7 @@ esac
 EOF
 
 echo Clean dnsmasq
-sed -i '/tor/d; /onion/d; /rublock/d' /etc/storage/dnsmasq/dnsmasq.conf
+sed -i '/Tor/d; /tor/d; /onion/d; /rublock/d' /etc/storage/dnsmasq/dnsmasq.conf
 
 echo Clean crontab tasks
 sed -i '/rublock/d' /etc/storage/cron/crontabs/$USER
